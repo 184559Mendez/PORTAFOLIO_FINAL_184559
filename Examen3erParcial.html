@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Contraseñas</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: white;
+            padding: 15px;
+            border: 1px solid #ccc;
+            width: 300px;
+        }
+
+        h1 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        label, button, h2 {
+            display: block;
+            margin-top: 10px;
+        }
+
+        input[type="number"], input[type="checkbox"] {
+            margin-top: 5px;
+        }
+
+        button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 15px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            background-color: #e0e0e0;
+            margin-top: 5px;
+            padding: 5px;
+        }
+
+        #download-pdf {
+            background-color: #28a745;
+            margin-top: 15px;
+        }
+
+        #download-pdf:hover {
+            background-color: #218838;
+        }
+
+        input[type=number]::-webkit-outer-spin-button,
+        input[type=number]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Generador de Contraseñas</h1>
+        <form id="formulario-contraseña">
+            <label for="longitud">Longitud (8-15):</label>
+            <input type="number" id="longitud" name="longitud" min="8" max="15" required>
+            
+            <label for="minusculas">¿Incluir minúsculas?</label>
+            <input type="checkbox" id="minusculas" name="minusculas" checked>
+            
+            <label for="mayusculas">¿Incluir mayúsculas?</label>
+            <input type="checkbox" id="mayusculas" name="mayusculas" checked>
+            
+            <label for="numeros">¿Incluir números?</label>
+            <input type="checkbox" id="numeros" name="numeros" checked>
+            
+            <label for="especiales">¿Incluir caracteres especiales?</label>
+            <input type="checkbox" id="especiales" name="especiales" checked>
+            
+            <button type="submit">Generar</button>
+        </form>
+        
+        <div id="resultado">
+            <h2>Contraseñas Generadas:</h2>
+            <ul id="lista-contraseñas"></ul>
+            <button id="descargar-pdf">Descargar PDF</button>
+        </div>
+    </div>
+    <script>
+        document.getElementById('formulario-contraseña').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const longitud = parseInt(document.getElementById('longitud').value);
+            const incluirMinusculas = document.getElementById('minusculas').checked;
+            const incluirMayusculas = document.getElementById('mayusculas').checked;
+            const incluirNumeros = document.getElementById('numeros').checked;
+            const incluirEspeciales = document.getElementById('especiales').checked;
+            
+            const caracteresMinusculas = 'abcdefghijklmnopqrstuvwxyz';
+            const caracteresMayusculas = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            const caracteresNumeros = '0123456789';
+            const caracteresEspeciales = '!@#$%^&*()_+~`|}{[]:;?><,./-=';
+            
+            let conjuntoCaracteres = '';
+            if (incluirMinusculas) conjuntoCaracteres += caracteresMinusculas;
+            if (incluirMayusculas) conjuntoCaracteres += caracteresMayusculas;
+            if (incluirNumeros) conjuntoCaracteres += caracteresNumeros;
+            if (incluirEspeciales) conjuntoCaracteres += caracteresEspeciales;
+            
+            if (conjuntoCaracteres === '') {
+                alert('Debe seleccionar al menos un tipo de carácter');
+                return;
+            }
+            
+            const contraseñas = generarContraseñas(10, longitud, conjuntoCaracteres);
+            
+            mostrarContraseñas(contraseñas);
+        });
+
+        function generarContraseñas(cantidad, longitud, conjuntoCaracteres) {
+            const contraseñas = [];
+            for (let i = 0; i < cantidad; i++) {
+                let contraseña = '';
+                for (let j = 0; j < longitud; j++) {
+                    const indiceAleatorio = Math.floor(Math.random() * conjuntoCaracteres.length);
+                    contraseña += conjuntoCaracteres[indiceAleatorio];
+                }
+                contraseñas.push(contraseña);
+            }
+            return contraseñas;
+        }
+
+        function mostrarContraseñas(contraseñas) {
+            const listaContraseñas = document.getElementById('lista-contraseñas');
+            listaContraseñas.innerHTML = '';
+            contraseñas.forEach(contraseña => {
+                const elementoLista = document.createElement('li');
+                elementoLista.textContent = contraseña;
+                listaContraseñas.appendChild(elementoLista);
+            });
+        }
+
+        document.getElementById('descargar-pdf').addEventListener('click', function() {
+            const { jsPDF } = window.jspdf;
+            const documentoPDF = new jsPDF();
+            const contraseñas = Array.from(document.querySelectorAll('#lista-contraseñas li')).map(li => li.textContent);
+            
+            documentoPDF.text('Contraseñas Generadas:', 10, 10);
+            contraseñas.forEach((contraseña, indice) => {
+                documentoPDF.text(`${indice + 1}. ${contraseña}`, 10, 20 + (indice * 10));
+            });
+            
+            documentoPDF.save('contraseñas.pdf');
+        });
+    </script>
+</body>
+</html>

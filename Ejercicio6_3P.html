@@ -1,0 +1,33 @@
+<html>
+<head>
+  <title>Bienvenida del usuario</title>
+  <script type="text/javascript">
+    function convertir() {
+      var gradosCelsius = parseInt(document.forms[0].Grados.value);
+      var sistemaUnidades = parseInt(document.forms[0].Opcion.value);
+      var resultado = 0;
+
+      if (sistemaUnidades === 1) {
+        resultado = (gradosCelsius * 9/5) + 32;
+        document.write("El resultado en Celsius es: " + gradosCelsius);
+        document.write("El resultado en grados Fahrenheit es: " + resultado);
+      } else if (sistemaUnidades === 2) {
+        resultado = gradosCelsius + 273;
+        document.write("El resultado en Celsius es: " + gradosCelsius);
+        document.write("El resultado en Kelvin es: " + resultado);
+      } 
+      return false;
+    }
+  </script>
+</head>
+<body>
+  <form id="myform" onsubmit="return convertir();">
+    <p>Grados <input id="Grados" name="Grados" type="text" /></p>
+    <p>Sistema de Unidades <select name="Opcion" id="Opcion">
+      <option value="1">FAHRENHEIT</option>
+      <option value="2">KELVIN</option>
+    </select></p>
+    <p><input type="submit" /></p>
+  </form>
+</body>
+</html>
