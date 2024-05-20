@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style> 
+#earth {
+  width: 1cm;
+  height: 1cm;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -50px; 
+  margin-left: -50px; 
+  animation-name: earthOrbit;
+  animation-duration: 10s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+#sun {
+  width: 200px;
+  height: 200px;
+  position: absolute;
+  top: calc(50% - 100px); 
+  left: calc(50% - 100px); 
+  border-radius: 50%;
+  background-color: black;
+  animation-name: sunRotate;
+  animation-duration: 10s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+@keyframes earthOrbit {
+  0%   { transform: rotate(0deg) translateX(200px) }
+  100% { transform: rotate(360deg) translateX(200px) }
+}
+
+@keyframes sunRotate {
+  0%   { transform: rotate(0deg) }
+  100% { transform: rotate(360deg) }
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #000;
+}
+</style>
+</head>
+<body>
+
+<h1>Earth and Sun Animation</h1>
+
+<div id="earth"><img src="planetearth-Photoroom.png-Photoroom.png" alt="Earth"></div>
+<div id="sun"><img src="sun-Photoroom.png" alt="Sun"></div>
+
+</body>
+</html>
+
