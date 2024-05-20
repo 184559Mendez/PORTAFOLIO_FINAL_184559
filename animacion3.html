@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transición de imagen con CSS</title>
+    <style>
+        body{
+            background-color: bisque;
+            color: white;
+        }
+        h1{
+            color: black;
+        }
+        /* Estilos básicos para la imagen */
+        .boton {
+            height: 100px;
+            width: 100px; /* Ancho inicial */
+            background-color: black;
+            transition: width 0.5s; /* Transición suave */
+        }
+
+        /* Cambio de tamaño al hacer hover */
+        .boton:hover {
+            width: 300px; /* Ancho al hacer hover */
+
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Transición de imagen con CSS</h1>
+
+    <div class="boton">
+        Nosotros
+    </div>
+    <div class="boton">
+        Aspirantes
+    </div>
+    <div class="boton">
+        Estudiantes
+    </div>
+    <div class="boton">
+        Docentes
+    </div>
+    <div class="boton">
+        Egresados
+    </div>
+    <div class="boton">
+        Contacto
+    </div>
+</body>
+</html>
