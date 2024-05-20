@@ -1,0 +1,79 @@
+body {
+  padding: 0 50px;
+  background-color: hwb(73 38% 26%);
+  font-family: sans-serif;
+  text-align: justify;
+}
+
+h1 {
+  margin: 0;
+  font-family: "SigmarOne";
+  font-size: 3rem;
+  text-align: center;
+}
+
+h2 {
+  margin: 0;
+  color:hwb(291 50% 30%);
+  font-family: "SigmarOne";
+  font-size: 3rem;
+  text-transform: capitalize;
+  text-shadow: 3px 3px rgb(0, 0, 0);
+}
+
+strong {
+  padding: 0 10px;
+  background-color: white;
+  color: rgb(228, 15, 164);
+}
+
+i {
+  font-size: 1.25rem;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+time {
+  color: rgb(25, 29, 255);
+}
+
+img {
+  border: hwb(291 50% 30%) solid;
+  padding: 5px;
+}
+
+img.izquierda {
+  float: left;
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
+img.derecha {
+  float: right;
+  margin-left: 10px;
+  margin-bottom: 10px;
+}
+
+p.izquierda {
+  float: left;
+  width: 33%;
+}
+
+p.centrado {
+  text-align: center;
+}
+
+hr {
+  clear: both;
+  width: 66%;
+  height: 10px;
+  border: black 1px solid;
+  border-radius: 5px;
+  margin: 40px auto;
+  background-color: hwb(0 0% 100%);
+}
+
+address {
+  text-align: right;
+  font-style: normal
+}
